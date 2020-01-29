@@ -1,0 +1,660 @@
+<html>
+<meta charset="utf-8">
+
+<head>
+ <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+ <title>The Online Planner</title>
+ <style type="text/css">
+
+ body {
+background-color: ivory;
+/*background-image:linear-gradient(to bottom, turquoise, blueviolet, blueviolet); */
+ display: grid;
+ grid-template-areas: 
+ "title title"
+ "showdate showdate"
+ "newassignment schedule"
+ ;
+
+ }
+ legend#addassignment{
+ font-size: 25px;
+ color: blueviolet;
+ font-weight: bold;
+ 
+ }
+
+ textarea.DayNotes{
+    background-color: ivory;
+    border:  2px khaki solid;
+ }
+
+ #submitbutton:hover{
+ opacity: 0.7;
+ }
+
+ select#classes{
+     background-color: white;
+ }
+
+ 
+
+ p.formtext {
+ font-family: Arial, Helvetica, sans-serif;
+ font-weight: bold;
+ color: blueviolet;
+
+ }
+
+ div.boxes {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ text-align: center;
+ width: 99%;
+ height: 290px;
+ background-color: turquoise;
+ color: blueviolet;
+ 
+ font-size: 35px;
+
+ }
+
+ table,
+ th,
+ td {
+ border: 3px solid teal;
+ border-collapse: collapse;
+ 
+ }
+
+ th{
+ padding-left: 35px;
+ padding-right: 35px;
+ padding-top: 20px;
+ text-align: center;
+ color: blueviolet ;}
+ td {
+ padding-left: 35px;
+ padding-right: 35px;
+ padding-top: 20px;
+ text-align: center;
+ color: blueviolet ;
+ }
+
+ fieldset {
+ width: 20%;
+ margin-bottom: 20px;
+ grid-area: newassignment;
+ height: 30%;
+ background-color: turquoise;
+ border: teal 1px solid;
+
+ }
+
+ table {
+ grid-area: schedule;
+ 
+ 
+ }
+ button#showtodaysdate {
+ grid-area: showdate;
+ width: 150px;
+ border: 1px solid teal;
+ font-weight: bold;
+ color: blueviolet;
+ background-color: turquoise;
+ }
+
+ p#showtodaysdate {
+ grid-area: showdate;
+ }
+
+ textarea {
+ margin-bottom: 3px;
+ }
+
+ div.dailyclasses {
+ height: 300px;
+ border: 1px dotted turquoise;
+ margin-bottom: 10px;
+
+ }
+
+ #mainheading{
+ grid-area: title;
+ font-family: 'Aclonica';
+ font-size: 22px;
+ text-align: center;
+ font-size: 32pt;
+ color: blueviolet;
+ }
+ 
+ p.blocks {
+ margin: 0
+ }
+
+ textarea#lunchlength {
+ width: 100%;
+
+ }
+
+ img#headroycelogo {
+ align-content: center;
+ height: 200%;
+ width: 100%;
+ }
+
+ a#hoverimage:hover {
+ opacity: 0.7;
+ }
+ 
+ #submitbutton {
+ animation-name: submitbuttons;
+ animation-duration: 4s;
+ color: turquoise;
+ animation-iteration-count: infinite;
+ background-color: blueviolet;
+
+ }
+
+ 
+ 
+
+ /*@keyframes submitbuttons{ 
+ 0%{
+ background-color: lightgreen;
+ }
+ 
+ 25%{
+ background-color: lightyellow;
+ 
+ }
+ 
+ 50%{
+ background-color: gold;
+ }
+ 
+ 75%{
+ background-color: turquoise;
+ }
+ 
+ 100%{
+ background-color: lightblue;
+ }
+ } */
+ 
+ button, textarea, input{
+ border-radius: 15px;
+ }
+ input[type=checkbox]:hover{
+ transform: scale(2);
+ -ms-transform: scale(2); /* Internet Explorer*/
+ -moz-transform: scale(2); /* Firefox */
+ -webkit-transform: scale(2); /* Safari and Chrome */
+ -o-transform: scale(2); /* Opera */
+ }
+ 
+ select:hover, input[type=date]:hover, #submitbutton:hover{
+ transform: scale(1.2);
+ -ms-transform: scale(1.2); /* Internet Explorer*/
+ -moz-transform: scale(1.2); /* Firefox */
+ -webkit-transform: scale(1.2); /* Safari and Chrome */
+ -o-transform: scale(1.2); /* Opera */
+ }
+
+ 
+ 
+ </style>
+
+</head>
+
+<body>
+ <h1 id="mainheading">The Online Planner</h1>
+ <button id="showtodaysdate" onclick="localStorage.clear()";>Clear All Data</button>
+ <div id='leftsidebar'>
+ <fieldset>
+ <legend id='addassignment'>
+ Add assignment
+ </legend>
+ <p class="formtext" id="whatclass"> What Class?
+ <select id="Classes" name="classes" required="required">
+ <option value="Enter">Enter Block</option>
+ <option value="Math">Math</option>
+ <option value="English">English</option>
+ <option value="Science">Science</option>
+ <option value="History">History</option>
+ <option value="Language">language</option>
+ <option value="Elective">Elective</option>
+ </select>
+ </p>
+
+ <p class="formtext">Insert Assignment:</p>
+ <textarea id='textbox' name="assignment" rows="5" cols="30">
+ </textarea>
+
+ <p class="formtext">Due Date:</p>
+ <input id="inputdate" type="date" name="duedate">
+ <p>
+ <button onclick="createDiv();" id="submitbutton">Create Assignment</button>
+ </p>
+ </fieldset>
+ </div>
+
+ <table id='thetable'>
+ <tr>
+ <th>Monday</th>
+ <th>Tuesday</th>
+ <th>Wednesday</th>
+ <th>Thursday</th>
+ <th>Friday</th>
+ </tr>
+ </tr>
+ <td>
+ <textarea class="DayNotes" name="mondaynotes" rows="5" cols="30">Add Other Information Here</textarea>
+ </td>
+ <td>
+ <textarea  class="DayNotes"name="tuesdaynotes" rows="5" cols="30">Add Other Information Here</textarea>
+ </td>
+ <td>
+ <textarea class="DayNotes" name="wednesdaynotes" rows="5" cols="30">Add Other Information Here</textarea>
+ </td>
+ <td>
+ <textarea class="DayNotes" name="thursdaynotes" rows="5" cols="30">Add Other Information Here</textarea>
+ </td>
+ <td>
+ <textarea class="DayNotes" name="fridaynotes" rows="5" cols="30">Add Other Information Here</textarea>
+ </td>
+ </tr>
+ <!--Row 1-->
+ <tr data-block='1'>
+ <td data-day='1' id='hi'>
+ <p class="blocks">A Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ 
+ </td>
+ <td data-day='2'>
+ <p class="blocks">B Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='3'>
+ <p class="blocks">A Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='4'>
+ <p class="blocks">G Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='5'>
+ <p class="blocks">D Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ </tr>
+ <!--Row 2-->
+ <tr data-block='2'>
+ <td data-day='1'>
+ <p class="blocks">B Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='2'>
+ <p class="blocks">C Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='3'>
+ <p class="blocks">B Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='4'>
+ <p class="blocks">F Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='5'>
+ <p class="blocks">F Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+
+ </tr>
+ <!--<tr>
+ <td>
+ <p class="blocks">Morning Meeting (10:05 - 10:20)</p>
+ <textarea id="lunchlength" name="morningmeeting" rows="2">Add info Here</textarea>
+ </td>
+ </tr>-->
+
+ <!--Row 3-->
+ <tr data-block='3'>
+ <td data-day='1'>
+ <p class="blocks">C Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='2'>
+ <p class="blocks">D Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='3'>
+ <p class="blocks">C Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='4'>
+ <p class="blocks">E Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='5'>
+ <p class="blocks">F Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ </tr>
+ <!--Row 4-->
+ <tr data-block='4'>
+ <td data-day='1'>
+ <p class="blocks">D Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='2'>
+ <p class="blocks">E Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='3'>
+ <p class="blocks">D Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='4'>
+ <p class="blocks">H Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='5'>
+ <p class="blocks">G Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ </tr>
+ <!--Row 5-->
+ <tr data-block='5'>
+ <td data-day='1'>
+ <p class="blocks">E Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='2'>
+ <p class="blocks">F Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td colspan='2' rowspan="3">
+ <a href='https://www.headroyce.org/' target="_blank" id='hoverimage'>
+ <img id='headroycelogo' src='headroycelogo.jpg'>
+ </a>
+ <div class="Blanckspot"></div>
+ </td>
+
+ <td data-day='3'>
+ <p class="blocks">A Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+
+ </tr>
+ <!--Row 6-->
+ <tr data-block='6'>
+
+ <td data-day='1'>
+ <p class="blocks">F Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='2'>
+ <p class="blocks">G Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+
+ <td data-day='3'>
+ <p class="blocks">B Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+
+ </tr>
+ <!--Row 7-->
+ <tr data-block='7'>
+ <td data-day='1'>
+ <p class="blocks">G Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='2'>
+ <p class="blocks">A Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+ <td data-day='3'>
+ <p class="blocks">C Block 
+ <input class="checkboxes" type="checkbox" name="checkbox" onclick="checkbox(this)">
+ </p>
+ <div class="dailyclasses" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+ </td>
+
+ </tr>
+
+ </table>
+
+
+
+ <p id="showtodaysdate"></p>
+
+
+ <script type="text/javascript">
+ //localStorage.clear();
+
+
+
+ let data = {
+ assignments: []
+ }
+
+ class Assignment {
+ constructor() {
+ this.day = 0
+ this.block = 0;
+ this.date = '';
+ this.class = '';
+ this.description = '';
+ this.id = 0;
+//this helps save all of the data. It compiles each assignment's data into one thing that can be saved to local storage.
+ }
+ }
+
+
+
+
+
+ function createDiv(assignment = null) { // Creates assignment, drawing the information entered and placing it in the internal html. 
+ let assignmentdiv = document.createElement('div')
+ let tb = document.getElementById('textbox')
+ assignmentdiv.innerHTML = tb.value;
+ if (assignment !== null) { // if data (textbox) inside assignment already, then put that data back in assigment when the page is reloaded.
+ assignmentdiv.innerHTML = assignment.description;
+ }
+
+ assignmentdiv.classList.add('boxes')
+ //when div is dragged, it calls the dragging function.
+ assignmentdiv.setAttribute('draggable', 'true')
+ assignmentdiv.setAttribute('ondragstart', 'drag(event)')
+ //let inputclass = document.getElementById('Classes')
+ let classDiv = document.createElement('div');
+ classDiv.innerText = Classes.value;
+ if (assignment !== null) { // same general thing as the other 'if' statement above, however the data is not the textbox, it is the class type.
+ classDiv.innerText = assignment.class
+ }
+
+ assignmentdiv.appendChild(classDiv);
+
+ // Creates the spot for the Date
+ let dateDiv = document.createElement('div');
+ dateDiv.innerText = inputdate.value;
+ if (assignment !== null) {
+ dateDiv.innerText = assignment.date;
+ }
+ assignmentdiv.appendChild(dateDiv);
+
+ //this set of code helps save each assignment created by the div above.
+ let newAssignment = new Assignment()
+ newAssignment.day = -1;
+ newAssignment.block = -1;
+ newAssignment.date = inputdate.value;
+ newAssignment.description = tb.value;
+ newAssignment.class = Classes.value;
+ if (assignment !== null) {
+ newAssignment = Object.assign({}, assignment);
+ }
+
+ //this area of the function is how local storage is able to figure out how things can be loaded back into the page.
+ if (assignment === null || newAssignment.day == -1) {
+ let sidebar = document.getElementById('leftsidebar')
+ sidebar.appendChild(assignmentdiv);
+ } else {
+ let trs = document.getElementsByTagName('tr'); //setting a variable for each row, taking it from html to turn into data
+
+ for (let block = 0; block < trs.length; block++) {
+ let b = trs[block]
+ if (b.getAttribute('data-block') == assignment.block) {
+ let tds = b.getElementsByTagName('td');
+
+ for (let day = 0; day < tds.length; day++) {
+ let d = tds[day]
+ if (d.getAttribute('data-day') == assignment.day) {
+ let div = d.getElementsByTagName('div')[0];
+ div.appendChild(assignmentdiv);
+ }
+ }
+ }
+ }
+ }
+
+
+
+ //the below code consolidates all new assignments into an array which can be saved onto local storage
+ newAssignment.id = data.assignments.length;
+ data.assignments.push(newAssignment);
+ assignmentdiv.setAttribute('data-id', newAssignment.id);
+
+ localStorage.setItem('pageData', JSON.stringify(data))
+ 
+
+ }
+
+ function drag(event) { //edits html of div to allow dragging
+ event.target.setAttribute('data-js', 'DRAGGING')
+ }
+
+ function drop(event) {
+ event.preventDefault(); // the default is to disallow drag and drop.
+
+ let spot = event.target;
+ let day = parseInt(spot.parentNode.getAttribute('data-day'))//getting data for the day when div is dragged
+ let block = parseInt(spot.parentNode.parentNode.getAttribute('data-block'));//getting data for the block when the div is dragged
+
+ //section of code below serves to track the div with 'data-js' and 'dragging' so that it actually exists during and after the collision
+ let item = document.querySelector('div[data-js="DRAGGING"')
+ let itemID = parseInt(item.getAttribute('data-id'))
+ data.assignments[itemID].day = day;
+ data.assignments[itemID].block = block;
+
+ event.target.appendChild(item);
+ item.removeAttribute('data-js')//data-js has to be specific to the div that is being dragged, so it is taken out of the div's html after it is used.
+
+//stringifies data and saves it to local storage
+ localStorage.setItem('pageData', JSON.stringify(data))
+ }
+
+ function allowDrop(event) {
+ event.preventDefault();
+ }
+
+ function checkbox( checky ){ //this function makes the checkbox change color when clicked
+ 
+ let td = checky.parentNode.parentNode;
+ if( checky.checked == true ) {
+ td.style.backgroundImage = 'linear-gradient(to bottom, limegreen, limegreen';
+ } //sets the checkbox color to limegreen when checked
+ else {
+ td.style.backgroundImage = 'initial';
+ }
+ }
+
+ function init() {
+ let pull = localStorage.getItem('pageData');
+
+
+ if (pull !== null) {
+ pull = JSON.parse(pull)
+ console.log('PULL: ', pull); //logs the page data in console
+
+ //code below runs a loop that assesses the number of divs saved as well as the place of each one and then recreates them using the createDiv function.
+ let i = 0
+ while (i < pull.assignments.length) {
+ let assign = pull.assignments[i];
+ createDiv(assign)
+ i++
+ }
+ }
+
+
+ }
+
+
+
+
+
+ window.addEventListener('load', init); //when window loads, run function init
+ </script>
+</body>
+
+</html>
